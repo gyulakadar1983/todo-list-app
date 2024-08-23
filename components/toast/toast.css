@@ -1,0 +1,104 @@
+.toast-track {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: var(--app-width);
+  height: var(--app-height);
+  padding: var(--p-lgr);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.toast {
+  flex-shrink: 0;
+  position: relative;
+  display: grid;
+  align-items: center;
+  grid-template-columns: var(--w-smr) auto auto var(--w-smr);
+  grid-template-areas: 'icon content content closeButton';
+  gap: var(--s-base);
+  width: 50%;
+  min-height: var(--h-base);
+  padding: var(--p-base);
+  margin-bottom: var(--s-sm);
+  box-shadow: var(--bs-sm) var(--bsc-ntrl);
+  border-radius: var(--br-base);
+  @mixin layer;
+  opacity: 1;
+  pointer-events: auto;
+  transition: background var(--td-base) var(--tf-primary);
+}
+
+.toast__icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1;
+  
+  &:not(.toast__icon-container--close-button) {
+    grid-area: icon;
+  }
+
+  &.toast__icon-container--close-button {
+    grid-area: closeButton;
+  }
+}
+
+.toast__icon {
+  width: 16px;
+  height: 16px;
+  
+  .toast.toast--error & {
+    color: var(--fg-error);
+  }
+
+  .toast.toast--success & {
+    color: var(--fg-success);
+  }
+}
+
+.toast__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-area: content;
+  line-height: 1.5;
+  font-size: var(--fs-sm);
+}
+
+.toast__text {
+  overflow-wrap: anywhere;
+  color: var(--fg-1);
+}
+
+.toast__action-button {
+  font-weight: 700;
+  color: var(--fg-btn-primary-inline);
+  font-size: var(--fs-base);
+  margin-left: var(--s-sm);
+  transition: var(--td-base) var(--tf-primary);
+
+  &:hover {
+    color: var(--fg-btn-primary-inline-hov);
+    transition-duration: var(--td-hover);
+  }
+}
+
+.toast__close-button {
+  aspect-ratio: 1;
+  height: var(--h-smst);
+  color: var(--fg-btn-ntrl-inline);
+  transition: var(--td-base) var(--tf-primary);
+  
+  &:hover {
+    color: var(--fg-btn-ntrl-inline-hov);
+    transition-duration: var(--td-hover);
+  }
+}

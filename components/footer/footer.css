@@ -1,0 +1,10 @@
+.footer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--p-base) var(--p-lg);
+  border-radius: inherit;
+  background-color: var(--bg-container);
+  transition: var(--td-base) var(--tf-primary);
+}

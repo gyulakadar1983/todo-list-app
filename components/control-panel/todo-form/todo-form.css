@@ -1,0 +1,57 @@
+.todo-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  gap: var(--s-sm);
+}
+
+.todo-form__input-container {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  height: var(--h-base);
+  gap: var(--s-base);
+  padding: 0 var(--p-base) 0;
+  border: var(--bw-sm) solid var(--bc-ntrl);
+  border-radius: var(--br-lgr);
+  outline: var(--bw-base) solid transparent;
+  background-color: var(--bg-input);
+  transition: var(--td-base) var(--tf-primary);
+  transition-property: background;
+
+  &:has(input:focus-visible) {
+    @mixin focus-outline;
+  }
+}
+
+.input-kbd {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: var(--w-smr);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: var(--bw-sm) solid var(--fg-3);
+  align-items: center;
+  text-align: center;
+  font-weight: 900;
+  font-size: var(--fs-base);
+  color: var(--fg-3);
+  transition: inherit;
+}
+
+.todo-form__text-input {
+  flex-grow: 1;
+  height: 100%;
+  border-radius: inherit;
+  color: var(--fg-input);
+  caret-color: var(--bg-input-caret);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+.todo-form__add-button {
+  width: 100px;
+}

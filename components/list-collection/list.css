@@ -1,0 +1,185 @@
+.list {
+  position: relative;
+  display: flex;
+  height: 100px;
+  border-radius: var(--br-base);
+  background-color: var(--bg-todo);
+  background-image: light-dark(
+    url('images/default-list-bg.svg'),
+    url('images/default-list-bg-dark.svg')
+  );
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-clip: padding-box;
+  box-shadow: var(--bs-base) var(--bsc-ntrl);
+  cursor: pointer;
+  user-select: none;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+  
+  &::before {
+    content: '';
+    background-color: rgba(0, 0, 0, 0);
+    transition: var(--td-fast) var(--tf-primary);
+  }
+
+  &:hover::before,
+  &:focus-visible::before,
+  &:has(.btn--list:focus-visible)::before,
+  &:has(.btn--list.is-active)::before {
+    background-color: light-dark(
+      rgba(0, 0, 0, .1),
+      rgba(0, 0, 0, .25)
+    );
+  }
+
+  &.list--has-image::before {
+    background-color: rgba(0, 0, 0, .5);
+  }
+  
+  &.list--has-image:hover::before,
+  &.list--has-image:focus-visible::before,
+  &.list--has-image:has(.btn--list:focus-visible)::before,
+  &.list--has-image:has(.btn--list.is-active)::before {
+    background-color: rgba(0, 0, 0, .6);
+  }
+
+  &::after {
+    content: 'Drop image here';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: var(--bw-base) dashed var(--clr-white);
+    opacity: 0;
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, .5);
+    color: var(--clr-white);
+    font-size: var(--fs-base);
+    font-style: italic;
+    z-index: 2;
+    transition: var(--td-fast) var(--tf-primary);
+  }
+
+  &.list--image-hint::after {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &.list--image-hint * {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.list__left-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--p-lg);
+  flex: 1;
+  min-width: 0;
+}
+
+.list__header {
+  height: min-content;
+  z-index: 2;
+}
+
+.list__title {
+  position: relative;
+  width: 100%;
+  outline: var(--bw-base) solid transparent;
+  border-radius: var(--bw-base);
+  color: var(--fg-1);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  overflow: clip;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: var(--td-fast) var(--tf-primary);
+
+  &[contenteditable="true"]:focus {
+    background: var(--bg-container);
+    @mixin focus-outline;
+    white-space: unset;
+    overflow-wrap: anywhere;
+    cursor: text;
+    caret-color: var(--bg-input-caret);
+  }
+
+  .list.list--has-image &:not([contenteditable="true"]) {
+    color: var(--clr-white);
+  }
+}
+
+.list__progress {
+  position: relative;
+  display: flex;
+  width: min-content;
+  height: min-content;
+  padding: var(--p-smr) var(--p-sm);
+  border-radius: var(--br-sm);
+  background: var(--bg-btn-ntrl);
+  color: var(--fg-2);
+  font-size: var(--fs-sm);
+  pointer-events: none;
+
+  .list.list--has-image & {
+    background: var(--bg-contrast-dark);
+    color: var(--clr-white);
+  }
+}
+
+.list__controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: var(--p-base);
+  height: 100%;
+  border-top-right-radius: calc(var(--br-base) - var(--bw-sm));
+  border-bottom-right-radius: calc(var(--br-base) - var(--bw-sm));
+  background: var(--bg-container);
+  overflow: hidden;
+  transition-property: width, background;
+  transition-duration: var(--td-fast), var(--td-base);
+  transition-timing-function: var(--tf-primary);
+  
+  .list:hover &,
+  .list:focus-visible &,
+  &:has(.btn--list:focus-visible),
+  &:has(.btn--list.is-active) {
+    width: calc(var(--w-smr) + var(--p-base) * 2);
+  }
+}
+
+.list__controls .modal-container {
+  visibility: hidden;
+  opacity: 0;
+  transition: var(--td-fast) var(--tf-primary);
+
+  .list:hover &,
+  .list:focus-visible &,
+  &:has(.btn--list:focus-visible),
+  &:has(.btn--list.is-active) {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.list__image-input {
+  position: absolute;
+  visibility: hidden;
+}

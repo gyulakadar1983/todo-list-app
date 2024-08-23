@@ -1,0 +1,72 @@
+.todo-list {
+  position: relative;
+  width: 100%;
+  flex-grow: 1;
+  padding: 0 var(--p-base) var(--p-base);
+  outline: var(--bw-base) solid transparent;
+  border-radius: var(--br-base);
+  z-index: 1;
+  overflow-y: auto;
+
+  &:focus-visible {
+    @mixin focus-outline;
+  }
+}
+
+.todo-list-empty {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  display: flex;
+  gap: var(--s-lg);
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 90%;
+  border-radius: var(--br-base);
+  background-color: var(--bg-todo);
+  visibility: visible;
+  opacity: 1;
+  transition: var(--td-base) var(--tf-primary);
+
+  .todo-list:has(.todo) & {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+.todo-list-empty__info-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-lg);
+}
+
+.todo-list-empty__image {
+  width: 300px;
+  content: light-dark(
+    url('images/todo-list-empty.svg'),
+    url('images/todo-list-empty-dark.svg')
+  );
+  user-select: none;
+  pointer-events: none;
+}
+
+.todo-list-empty__header {
+  font-size: var(--fs-lgst);
+  color: var(--fg-2);
+}
+
+.todo-list-empty__input-anchor {
+  font-size: var(--fs-lg);
+  transition: var(--td-base) var(--tf-primary);
+  transition-property: scale, background, border, color;
+
+  &:active {
+    scale: .97;
+  }
+}
+
+.ripple-click--todo-list-empty-label {
+  background: color-mix(in srgb, var(--clr-primary-900) 10%, transparent 90%);
+}

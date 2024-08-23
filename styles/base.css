@@ -1,0 +1,76 @@
+body {
+  display: flex;
+  height: 100vh;
+  max-height: 100vh;
+  background-color: var(--bg-document-body);
+  font-family: var(--ff-primary);
+  transition: background-color var(--td-base) var(--tf-primary);
+  
+  --app-width: 800px;
+  --app-height: 700px;
+  --app-br: var(--br-lg);
+}
+
+input {
+  caret-color: var(--bg-input-caret);
+}
+
+.app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: var(--app-width);
+  height: var(--app-height);
+  margin: auto;
+  background-color: var(--bg-app);
+  border-radius: var(--app-br);
+  box-shadow: var(--bs-sm) var(--bsc-ntrl);
+  transition: var(--td-base) var(--tf-primary);
+}
+
+.app__header {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  z-index: 1;
+}
+
+.app-heading-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-sm);
+}
+
+.app-heading {
+  color: var(--fg-btn-primary-inline);
+  font-weight: 700;
+  font-size: var(--fs-lg);
+}
+
+.app-address {
+  color: var(--fg-2);
+  font-size: var(--fs-sm);
+  font-style: italic;
+  font-family: 'Georgia', serif;
+}
+
+.app-author {
+  border-radius: var(--br-sm);
+  color: var(--fg-btn-primary-inline);
+  transition: var(--td-base) var(--tf-primary);
+  transition-property: color;
+  
+  &:hover {
+    color: var(--fg-btn-primary-inline-hov);
+    transition-duration: var(--td-hover);
+  }
+  
+  &:focus-visible {
+    color: var(--fg-btn-primary-inline-hov);
+    @mixin focus-outline;
+  }
+}

@@ -1,0 +1,23 @@
+.input-container {
+  position: relative;   
+
+  &:has(input.is-invalid) {
+    outline: var(--o-error) !important;
+  }
+}
+
+.input-error-hint {
+  position: absolute;
+  top: 50%;
+  right: var(--p-lg);
+  translate: 0% -50%;
+  visibility: hidden;
+  opacity: 0;
+  color: var(--fg-error);
+  transition: var(--td-base) var(--tf-primary);
+
+  .input-container:has(input.is-invalid) & {
+    visibility: visible;
+    opacity: 1;
+  }
+}

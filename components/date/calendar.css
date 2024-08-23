@@ -1,0 +1,124 @@
+.modal:has(.calendar) {
+  left: 50%;
+  translate: -50% 0%;
+  box-shadow: var(--bs-lg) var(--bsc-ntrl);
+  z-index: 3;
+  
+  &.is-hidden {
+    transform: translateY(0px);
+  }
+
+  &.is-visible {
+    transform: translateY(5px);
+  }
+}
+
+.btn--calendar {
+  font-size: .9rem;
+
+  .modal-container:has(.calendar[data-selected-date]) & {
+    border: var(--bw-sm) solid var(--bc-primary);
+    background-color: var(--bg-btn-primary);
+    color: var(--fg-btn-primary);
+    
+    &:hover {
+      border: var(--bw-sm) solid var(--bc-primary-hov);
+      background-color: var(--bg-btn-primary-hov);
+    }
+
+    &.is-active {
+      background-color: var(--bg-btn-primary-active);
+    }
+  }
+}
+
+.calendar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: calc(var(--w-sm) * 7 + var(--p-base) * 4);
+  padding: var(--p-base);
+  gap: var(--s-sm);
+  border-radius: inherit;
+  transition: var(--td-fast) var(--tf-primary);
+}
+
+.calendar .date-fieldset {
+  margin-bottom: var(--s-base);
+}
+
+.calendar__month {
+  width: 100%;
+
+  .menu__label-text {
+    display: flex;
+  }
+
+  .menu__icon-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+.calendar .carousel__slider {
+  width: 150px;
+  flex-grow: 1;
+}
+
+.calendar__days {
+  display: flex;
+  justify-content: center;
+  gap: var(--s-smr);
+  width: 100%;
+  height: var(--h-smr);
+}
+
+.calendar__day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  aspect-ratio: 2 / 1.7;
+  color: var(--fg-2);
+  font-size: var(--fs-smr);
+  font-weight: 700;
+
+  &.calendar__day--weekend {
+    color: var(--fg-calendar-weekend);
+  }
+}
+
+.calendar__dates {
+  width: 100%;
+}
+
+.calendar__date-grid {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: auto;
+  gap: var(--s-smr);
+  width: 100%;
+  border-radius: var(--br-base);
+  transition: var(--td-fast) var(--tf-primary);
+}
+
+.calendar__date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--fs-sm);
+  user-select: none;
+}
+
+.calendar__controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: var(--h-base);
+  gap: var(--s-base);
+  margin-top: var(--s-base);
+}

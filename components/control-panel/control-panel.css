@@ -1,0 +1,12 @@
+.control-panel {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-base) var(--s-sm);
+  width: 100%;
+  padding: var(--p-lg);
+  border-radius: inherit;
+  background-color: var(--bg-container);
+  box-shadow: var(--bs-base) var(--bsc-ntrl);
+  transition: var(--td-base) var(--tf-primary);
+}

@@ -1,0 +1,315 @@
+:root {
+
+  color-scheme: light dark;
+
+  /**
+   * Colors.
+   */
+
+  &[data-theme="light"] {
+    color-scheme: only light;
+    
+    --clr-primary-0:   hsl(200, 100%, 96%);
+    --clr-primary-100: hsl(200, 100%, 88%);
+    --clr-primary-200: hsl(200, 100%, 80%);
+    --clr-primary-300: hsl(200, 100%, 72%);
+    --clr-primary-400: hsl(200, 100%, 64%);
+    --clr-primary-500: hsl(200, 100%, 56%);
+    --clr-primary-600: hsl(200, 100%, 48%);
+    --clr-primary-700: hsl(200, 100%, 40%);
+    --clr-primary-800: hsl(200, 100%, 32%);
+    --clr-primary-900: hsl(200, 100%, 24%);
+  
+    --clr-green-0:     hsl(150, 100%, 96%);
+    --clr-green-100:   hsl(150, 100%, 92%);
+    --clr-green-200:   hsl(150, 100%, 88%);
+    --clr-green-300:   hsl(150, 100%, 80%);
+    --clr-green-400:   hsl(150, 100%, 76%);
+    --clr-green-500:   hsl(150, 100%, 72%);
+    --clr-green-600:   hsl(150, 100%, 68%);
+    --clr-green-700:   hsl(150, 100%, 64%);
+    --clr-green-800:   hsl(150, 100%, 60%);
+    --clr-green-900:   hsl(150, 100%, 40%);
+  
+    --clr-red-0:       hsl(350, 100%, 96%);
+    --clr-red-100:     hsl(350, 100%, 92%);
+    --clr-red-200:     hsl(350, 100%, 88%);
+    --clr-red-300:     hsl(350, 100%, 80%);
+    --clr-red-400:     hsl(350, 100%, 76%);
+    --clr-red-500:     hsl(350, 100%, 72%);
+    --clr-red-600:     hsl(350, 100%, 68%);
+    --clr-red-700:     hsl(350, 100%, 64%);
+    --clr-red-800:     hsl(350, 100%, 60%);
+    --clr-red-900:     hsl(350, 100%, 56%);
+
+    --clr-ntrl-0:      hsl(230, 100%, 100%);
+    --clr-ntrl-100:    hsl(230, 100%, 99%);
+    --clr-ntrl-200:    hsl(230, 10%, 98%);
+    --clr-ntrl-300:    hsl(230, 10%, 94%);
+    --clr-ntrl-400:    hsl(230, 10%, 90%);
+    --clr-ntrl-500:    hsl(230, 10%, 86%);
+    --clr-ntrl-600:    hsl(230, 10%, 84%);
+    --clr-ntrl-700:    hsl(230, 10%, 80%);
+    --clr-ntrl-800:    hsl(230, 0%, 45%);
+    --clr-ntrl-900:    hsl(230, 0%, 34%);
+    
+    --clr-white:       hsl(200, 100%, 100%);
+  }
+
+  &[data-theme="dark"] {
+    color-scheme: only dark;
+    
+    --clr-primary-0:   hsl(200, 100%, 4%);
+    --clr-primary-100: hsl(200, 100%, 8%);
+    --clr-primary-200: hsl(200, 100%, 12%);
+    --clr-primary-300: hsl(200, 100%, 16%);
+    --clr-primary-400: hsl(200, 100%, 30%);
+    --clr-primary-500: hsl(200, 100%, 34%);
+    --clr-primary-600: hsl(200, 100%, 38%);
+    --clr-primary-700: hsl(200, 100%, 42%);
+    --clr-primary-800: hsl(200, 100%, 46%);
+    --clr-primary-900: hsl(200, 100%, 50%);
+  
+    --clr-green-0:     hsl(91, 90%, 4%);
+    --clr-green-100:   hsl(91, 90%, 20%);
+    --clr-green-200:   hsl(91, 90%, 24%);
+    --clr-green-300:   hsl(91, 90%, 28%);
+    --clr-green-400:   hsl(91, 90%, 32%);
+    --clr-green-500:   hsl(91, 90%, 36%);
+    --clr-green-600:   hsl(91, 90%, 40%);
+    --clr-green-700:   hsl(91, 90%, 44%);
+    --clr-green-800:   hsl(91, 90%, 48%);
+    --clr-green-900:   hsl(91, 90%, 52%);
+  
+    --clr-red-0:       hsl(350, 90%, 4%);
+    --clr-red-100:     hsl(350, 90%, 42%);
+    --clr-red-200:     hsl(350, 90%, 46%);
+    --clr-red-300:     hsl(350, 90%, 50%);
+    --clr-red-400:     hsl(350, 90%, 54%);
+    --clr-red-500:     hsl(350, 90%, 58%);
+    --clr-red-600:     hsl(350, 90%, 62%);
+    --clr-red-700:     hsl(350, 90%, 66%);
+    --clr-red-800:     hsl(350, 90%, 70%);
+    --clr-red-900:     hsl(350, 90%, 74%);
+  
+    --clr-ntrl-0:      hsl(230, 10%, 6%);
+    --clr-ntrl-100:    hsl(230, 10%, 8%);
+    --clr-ntrl-200:    hsl(230, 10%, 11%);
+    --clr-ntrl-300:    hsl(230, 10%, 13%);
+    --clr-ntrl-400:    hsl(230, 10%, 17%);
+    --clr-ntrl-500:    hsl(230, 10%, 20%);
+    --clr-ntrl-600:    hsl(230, 10%, 23%);
+    --clr-ntrl-700:    hsl(230, 10%, 26%);
+    --clr-ntrl-800:    hsl(230, 0%, 74%);
+    --clr-ntrl-900:    hsl(230, 0%, 90%);
+    
+    --clr-white:       var(--clr-ntrl-900);
+  }
+
+  /**
+   * Functional color variables.
+   */
+
+  --fg-1: var(--clr-ntrl-900);
+  --fg-2: var(--clr-ntrl-800);
+  --fg-3: var(--clr-ntrl-700);
+  
+  --bg-document-body: light-dark(var(--clr-ntrl-100), var(--clr-ntrl-0));
+  --bg-app:           light-dark(var(--clr-ntrl-200), var(--clr-ntrl-100));
+  --bg-container:     light-dark(var(--clr-ntrl-0), var(--clr-ntrl-200));
+  --bg-modal:         light-dark(var(--bg-container), var(--bg-app));
+
+  --bg-contrast-dark:  hsl(230, 10%, 11%);
+  --bg-contrast-light: hsl(230, 100%, 100%);
+ 
+  --bg-todo:              light-dark(var(--clr-ntrl-0), var(--clr-ntrl-200));
+  --bg-todo-hov:          light-dark(var(--clr-ntrl-200), var(--clr-ntrl-300));
+  --bg-todo-selected:     var(--clr-primary-0);
+  --bg-todo-selected-hov: var(--clr-primary-100);
+  --bc-todo-selected:     var(--clr-primary-200);
+  --fg-todo:              var(--clr-ntrl-900);
+ 
+  --bg-btn-todo-finish:     transparent;
+  --bg-btn-todo-finish-hov: var(--clr-green-0);
+  --fg-btn-todo-finish:     light-dark(var(--clr-green-900), var(--clr-green-500));
+  --bg-ripple-todo-finish:  light-dark(var(--clr-green-900), var(--clr-green-500));
+  --o-btn-todo-finish:      light-dark(var(--clr-green-300), var(--clr-green-400));
+ 
+  --bg-btn-todo-delete:     transparent;
+  --bg-btn-todo-delete-hov: var(--clr-red-0);
+  --fg-btn-todo-delete:     light-dark(var(--clr-red-900), var(--clr-red-400));
+  --bg-ripple-todo-delete:  light-dark(var(--clr-red-900), var(--clr-red-400));
+  --o-btn-todo-delete:      light-dark(var(--clr-red-200), var(--clr-red-700));
+ 
+  --bg-btn-primary:            var(--clr-primary-400);
+  --bg-btn-primary-hov:        var(--clr-primary-500);
+  --bg-btn-primary-active:     var(--clr-primary-600);
+  --bg-btn-primary-disabled:   light-dark(var(--clr-primary-0), var(--clr-primary-100));
+  --fg-btn-primary:            light-dark(var(--clr-white), var(--fg-1));
+  --fg-btn-primary-disabled:   var(--clr-primary-300);
+  --fg-btn-primary-inline:     var(--clr-primary-600);
+  --fg-btn-primary-inline-hov: var(--clr-primary-800);
+
+  --bg-btn-ntrl:            light-dark(var(--clr-ntrl-300), var(--clr-ntrl-400));
+  --bg-btn-ntrl-hov:        light-dark(var(--clr-ntrl-400), var(--clr-ntrl-500));
+  --bg-btn-ntrl-active:     light-dark(var(--clr-ntrl-500), var(--clr-ntrl-600));
+  --bg-btn-ntrl-disabled:   transparent;
+  --fg-btn-ntrl:            var(--fg-2);
+  --fg-btn-ntrl-hov:        var(--clr-primary-800);
+  --fg-btn-ntrl-disabled:   var(--fg-3);
+
+  --bg-btn-ntrl-tp:         transparent;
+  --bg-btn-ntrl-tp-hov:     var(--bg-btn-ntrl);
+  --fg-btn-ntrl-tp:         var(--fg-btn-ntrl);
+  --fg-btn-ntrl-tp-hov:     var(--fg-btn-ntrl);
+  --fg-btn-ntrl-inline:     var(--clr-ntrl-800);
+  --fg-btn-ntrl-inline-hov: var(--clr-ntrl-900);
+
+  --bg-input:       light-dark(var(--clr-ntrl-300), var(--clr-ntrl-400));
+  --bg-input-caret: var(--clr-primary-900);
+  --fg-input:       var(--clr-ntrl-900);
+
+  --bsc-primary: var(--clr-primary-200);
+  --bsc-ntrl:    rgba(0, 0, 0, .08);
+
+  --bg-ripple-white: light-dark(rgba(255, 255, 255, .3), rgba(255, 255, 255, .15));
+  --bg-ripple-ntrl:  light-dark(rgba(0, 0, 0, .05), rgba(255, 255, 255, .05));
+
+  --fg-error:   light-dark(var(--clr-red-600), var(--clr-red-500));                     
+  --fg-success: light-dark(var(--clr-green-900), var(--clr-green-500));
+
+  /**
+   * Border colors.
+   */
+
+  --bc-primary:     transparent;
+  --bc-primary-hov: transparent;
+  --bc-ntrl:        light-dark(var(--clr-ntrl-500), var(--clr-ntrl-600));
+  --bc-ntrl-hov:    light-dark(var(--clr-ntrl-600), var(--clr-ntrl-700));
+
+  /**
+   * Backdrop filters.
+   */
+
+  --bf-blur:    100px;
+  --bf-blur-sm: 20px;
+
+  /**
+   * Border radiuses.
+   */
+
+  --br-lgr:  35px;
+  --br-lg:   20px;
+  --br-base: 10px;
+  --br-sm:   5px;
+
+  /**
+   * Box shadows.
+   */
+
+  --bs-lg:   0px 6px 20px;
+  --bs-base: 0px 4px 14px;
+  --bs-sm:   0px 2px 6px;
+
+  /**
+   * Border widths.
+   */
+
+  --bw-base: 3px;
+  --bw-sm:   1px;
+
+  /**
+   * Outlines.
+   */
+
+  --o-error: var(--bw-base) solid var(--clr-red-400);
+
+  /**
+   * Font families.
+   */
+
+  --ff-primary: "Inter", sans-serif;
+
+  /**
+   * Font sizes.
+   */
+
+  --fs-base: 16px;
+  --fs-sm:   14px;
+  --fs-smr:  11px;
+  --fs-lg:   20px;
+  --fs-lgr:  22px;
+  --fs-lgst: 26px;
+  
+  /**
+   * Heights.
+   */
+   
+  --h-base: 46px;
+  --h-sm:   36px;
+  --h-smr:  30px;
+  --h-smst: 24px;
+
+  /**
+   * Opacity.
+   */
+
+  --o-lg:   10%;
+  --o-base: 50%;
+
+  /**
+   * Paddings.
+   */
+
+  --p-lgr:  25px;
+  --p-lg:   15px;
+  --p-base: 10px;
+  --p-sm:   5px;
+  --p-smr:  2px;
+
+  /**
+   * Spacings.
+   */
+
+  --s-lg:   15px;
+  --s-base: 10px;
+  --s-sm:   5px;
+  --s-smr:  2px;
+
+  /**
+   * Transition durations.
+   */
+   
+  --td-base:   300ms;
+  --td-fast:   150ms;
+  --td-hover:  50ms;
+  --td-active: 25ms;
+
+  /**
+   * Timing-functions.
+   */
+
+  --tf-primary: ease-out;
+  --tf-bounce:  cubic-bezier(.5,.5,.1,3);
+
+  /**
+   * Widths.
+   */
+
+  --w-base: 46px;
+  --w-sm:   36px;
+  --w-smr:  30px;
+  --w-smst: 24px;
+}
+
+@define-mixin layer {
+  background-color: var(--bg-modal);
+  backdrop-filter: blur(var(--bf-blur));
+  border: var(--bw-sm) solid var(--bc-ntrl);
+}
+
+@define-mixin focus-outline {
+  --o-focus: var(--bw-base) solid light-dark(var(--clr-primary-200), var(--clr-primary-700));
+  outline: var(--o-focus);
+  outline-offset: 1px;
+}

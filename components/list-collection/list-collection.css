@@ -1,0 +1,28 @@
+.list-collection {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: auto;
+  gap: var(--s-base);
+  width: 100%;
+}
+
+.list-collection__create-button {
+  height: 60px !important;
+  grid-column-start: 1;
+  grid-column-end: 3;
+
+  svg {
+    width: 25px;
+    aspect-ratio: 1;
+    stroke: var(--fg-btn-primary-inline);
+  }
+}
+
+.list-collection > * {
+  outline: var(--bw-base) solid transparent;
+
+  &:focus-visible {
+    @mixin focus-outline;
+  }
+}

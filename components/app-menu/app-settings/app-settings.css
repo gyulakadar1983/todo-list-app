@@ -1,0 +1,33 @@
+.settings__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-sm) 0;
+  list-style: none;
+}
+
+.settings__setting {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--h-base);
+  padding: 0 var(--p-base);
+  box-shadow: var(--bs-sm) var(--bsc-ntrl);
+  border-radius: var(--br-base);
+  background-color: var(--bg-todo);
+  transition: background-color var(--td-base) var(--tf-primary);
+}
+
+.settings__setting-label {
+  display: flex;
+  align-items: center;
+  gap: var(--s-base);
+  flex-grow: 1;
+  height: 100%;
+  color: var(--fg-btn-ntrl-inline);
+  font-size: var(--fs-base);
+}
+
+.settings__theme-menu-container {
+  max-width: 50%;
+}

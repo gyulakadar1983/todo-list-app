@@ -1,0 +1,41 @@
+.date-fieldset {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--p-base) 0;
+  border-bottom: var(--bw-sm) solid var(--bc-ntrl);
+}
+
+.date-fieldset__label {
+  color: var(--fg-1);
+  font-size: var(--fs-sm);
+  margin-right: auto;
+}
+
+.date-fieldset__input {
+  width: min-content;
+  height: 100%;
+  color: var(--fg-2);
+  text-align: center;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+
+  &::placeholder {
+    font-style: italic;
+  }
+}
+
+.date-fieldset__literal {
+  user-select: none;
+  pointer-events: none;
+  color: var(--fg-1);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+.date-fieldset__reset-button {
+  height: var(--h-smst);
+  margin-left: var(--s-smr);
+  font-size: var(--fs-sm);
+}

@@ -1,0 +1,41 @@
+.svg {
+  fill: currentColor;
+  pointer-events: none;
+}
+
+.x-svg {
+  width: 10px;
+  height: 10px;
+  stroke-width: 2px;
+  stroke: currentColor;
+}
+
+.burger-svg,
+.plus-svg {
+  stroke-width: 1.5px;
+  stroke: currentColor;
+}
+
+.burger-svg {
+  width: 14px;
+  height: 12px;
+}
+
+.plus-svg {
+  width: 10px;
+  height: 10px;
+}
+
+.filter-svg,
+.sort-svg {
+  width: 14px;
+  height: 12px;
+  stroke-width: 1.5px;
+  stroke: currentColor;
+}
+
+.bootstrap-svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: unset;
+}

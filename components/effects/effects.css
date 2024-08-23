@@ -1,0 +1,53 @@
+/**
+ * Ripple click effect.
+ */
+
+.ripple-wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ripple-click {
+  display: block;
+  position: absolute;
+  translate: -50% -50%;
+  border-radius: 50%;
+  scale: 0;
+  aspect-ratio: 1;
+  pointer-events: none;
+  transition: var(--td-base) var(--tf-primary);
+
+  &.ripple-click--fade-in {
+    animation: ripple-click__animation--fade-in both var(--td-base) var(--tf-primary);
+  }
+  
+  @keyframes ripple-click__animation--fade-in {
+    to {
+      scale: 1;
+    }
+  }
+
+  &.ripple-click--fade-out {
+    animation: ripple-click__animation--fade-out var(--td-base) var(--tf-primary);
+  }
+
+  @keyframes ripple-click__animation--fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  &.ripple-click--lt {
+    background-color: var(--bg-ripple-white);
+  }
+
+  &.ripple-click--dk {
+    background-color: var(--bg-ripple-ntrl);
+  }
+}

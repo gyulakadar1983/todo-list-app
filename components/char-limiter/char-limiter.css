@@ -1,0 +1,16 @@
+.char-limiter {
+  display: flex;
+  width: min-content;
+  margin-left: auto;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  gap: 1px;
+  
+  &.is-inactive {
+    color: var(--fg-2);
+  }
+  
+  &.is-active {
+    color: var(--fg-error);
+  }
+}

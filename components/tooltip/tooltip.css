@@ -1,0 +1,38 @@
+.tooltip {
+  @mixin layer;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  width: max-content;
+  max-width: 400px;
+  min-height: var(--h-smr);
+  padding: var(--p-base);
+  border-radius: var(--br-base);
+  box-shadow: var(--bs-sm) rgba(0, 0, 0, .15);
+  color: var(--fg-1);
+  font-size: var(--fs-sm);
+  font-weight: initial !important;
+  z-index: 200;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition-property: visibility, opacity;
+  transition-duration: var(--td-fast);
+  transition-timing-function: var(--tf-primary);
+  
+  &.is-visible {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &.tooltip--offset-right {
+    top: 50%;
+    right: -10px;
+    left: unset;
+    translate: 100% -50%;
+  }
+  
+  .tooltip-parent:hover &.tooltip--delay-0 {
+    transition-delay: 0ms;
+  }
+}

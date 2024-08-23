@@ -1,0 +1,254 @@
+.todo {
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s-base);
+  min-height: 70px;
+  width: 100%;
+  margin-top: var(--s-base);
+  padding: var(--p-lg);
+  background-color: var(--bg-todo);
+  border: var(--bw-sm) solid transparent;
+  border-radius: var(--br-base);
+  box-shadow: var(--bs-base) var(--bsc-ntrl);
+  user-select: none;
+  cursor: pointer;
+  z-index: 1;
+  transition-property: scale, border, background-color;
+  transition-duration: var(--td-base);
+  transition-timing-function: var(--tf-primary);
+
+  &:hover {
+    scale: 1.005;
+    background: var(--bg-todo-hov);
+    border-color: var(--bc-ntrl-hov);
+    transition-duration: var(--td-hover), var(--td-hover), var(--td-hover);
+  }
+
+  &:active {
+    scale: 1;
+    transition-duration: var(--td-active), var(--td-hover), var(--td-hover);
+  }
+
+  &:focus-visible {
+    @mixin focus-outline;
+  }
+
+  &:has(.todo__buttons.is-visible) {
+    border-color: var(--bc-ntrl);
+  }
+  
+  &:has(.checkbox.is-active) {
+    border-color: var(--bc-todo-selected);
+    background-color: var(--bg-todo-selected);
+    transition-duration: var(--td-base);
+
+    &:hover {
+      background-color: var(--bg-todo-selected-hov);
+      transition-duration: var(--td-base), var(--td-hover), var(--td-hover);
+    }
+
+    &:active {
+      transition-duration: var(--td-active), var(--td-hover), var(--td-base);
+    }
+  }
+}
+
+.todo__count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--w-smst);
+  flex-shrink: 0;
+  aspect-ratio: 1;
+  border-radius: var(--br-sm);
+  color: var(--fg-2);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+
+  &::after {
+    content: ".";
+  }
+
+  .todo--finished & {
+    color: var(--fg-3);
+  }
+}
+
+.todo__content {
+  flex-grow: 1;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.todo__content-text {
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+  color: var(--fg-todo);
+  font-size: var(--fs-base);
+
+  .todo--finished & {
+    color: var(--fg-3);
+    text-decoration: line-through;
+  }
+}
+
+.todo__due-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  margin-left: var(--p-sm);
+  border-radius: var(--br-sm);
+  color: var(--fg-2);
+  font-size: var(--fs-base);
+  font-style: italic;
+  letter-spacing: 0.05rem;
+
+  &.is-disabled {
+    display: none;
+  }
+  
+  .todo--finished & {
+    color: var(--fg-3);
+  }
+}
+
+.todo__buttons {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: inherit;
+  background-color: var(--bg-todo);
+  transition: var(--td-fast) var(--tf-primary);
+
+  &.is-hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &.is-visible {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.todo__button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  outline: var(--bw-base) solid transparent;
+  outline-offset: 1px;
+  transition: var(--td-base) var(--tf-primary);
+  transition-property: background;
+  
+  &:hover {
+    transition-duration: var(--td-hover);
+  }
+}
+
+.todo__button-icon {
+  transition-property: scale;
+  transition-duration: var(--td-base);
+  transition-timing-function: var(--tf-bounce);
+
+  .todo__button:active & {
+    scale: 1;
+  }
+}
+
+.todo__button--delete {
+  border-right: var(--bw-sm) solid var(--bc-ntrl);
+  border-top-left-radius: inherit;
+  border-bottom-left-radius: inherit;
+  color: var(--fg-btn-todo-delete);
+  background-color: var(--bg-btn-todo-delete);
+
+  &:hover {
+    background-color: var(--bg-btn-todo-delete-hov);
+  }
+
+  &:focus-visible {
+    outline: var(--bw-base) solid var(--o-btn-todo-delete);
+  }
+  
+  .todo__button-icon {
+    width: 20px;
+    height: 20px;
+    z-index: 2;
+
+    .todo:has(.ripple-click.ripple-click--todo-finish) & {
+      z-index: 0;
+    }
+  }
+
+  &:hover .todo__button-icon {
+    scale: 1.25;
+  }
+}
+
+.ripple-click.ripple-click--todo-delete {
+  background-color: var(--bg-ripple-todo-delete);
+  z-index: 2;
+}
+
+.todo__button--finish {
+  color: var(--fg-btn-todo-finish);
+  border-top-right-radius: inherit;
+  border-bottom-right-radius: inherit;
+  background-color: var(--bg-btn-todo-finish);
+
+  &:hover {
+    background-color: var(--bg-btn-todo-finish-hov);
+  }
+
+  &:focus-visible {
+    outline: var(--bw-base) solid var(--o-btn-todo-finish);
+  }
+
+  .todo__button-icon {
+    z-index: 1;
+    
+    &.todo__button-icon--finish {
+      width: 30px;
+      height: 30px;
+    }
+  
+    &.todo__button-icon--unfinish {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 2px;
+    }
+  }
+
+  &:hover .todo__button-icon--finish {
+    scale: 1.3;
+  }
+
+  &:hover .todo__button-icon--unfinish {
+    scale: 1.3;
+  }
+}
+
+.ripple-click.ripple-click--todo-finish {
+  background-color: var(--bg-ripple-todo-finish);
+  z-index: 1;
+}
+
+.btn--todo-close {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}

@@ -1,0 +1,247 @@
+.btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  white-space: nowrap;
+  border-radius: var(--br-base);
+  background-color: var(--bg-btn-ntrl);
+  border: var(--bw-sm) solid var(--bc-ntrl);
+  outline: var(--bw-base) solid transparent;
+  color: var(--fg-btn-ntrl);
+  font-size: var(--fs-sm);
+  transition: var(--td-base) var(--tf-primary);
+  transition-property: background, border, color;
+
+  &:hover {
+    background-color: var(--bg-btn-ntrl-hov);
+    border-color: var(--bc-ntrl-hov);
+    transition-duration: var(--td-hover);
+  }
+
+  &:active, &.is-active {
+    background-color: var(--bg-btn-ntrl-active);
+  }
+
+  &:focus-visible {
+    @mixin focus-outline;
+  }
+
+  &:not(.btn--primary)[disabled] {
+    color: var(--fg-btn-ntrl-disabled);
+    background-color: var(--bg-btn-ntrl-disabled);
+    pointer-events: none;
+    
+    svg {
+      stroke: var(--fg-btn-ntrl-disabled);
+    }
+  }
+
+  &.btn--primary {
+    background-color: var(--bg-btn-primary);
+    border: var(--bw-sm) solid var(--bc-primary);
+    box-shadow: var(--bs-base) var(--bsc-primary);
+    color: var(--fg-btn-primary);
+    font-weight: 700;
+
+    &:hover, &:focus-visible {
+      background-color: var(--bg-btn-primary-hov);
+      border-color: var(--bc-primary-hov);
+    }
+
+    &:active, &.is-active {
+      background-color: var(--bg-btn-primary-active);
+    }
+  }
+
+  &.btn--ntrl-tp {
+    background: var(--bg-btn-ntrl-tp);
+    border-color: transparent;
+    color: var(--fg-btn-ntrl-tp);
+
+    &:hover, &:focus-visible {
+      background: var(--bg-btn-ntrl-tp-hov);
+      color: var(--fg-btn-ntrl-tp-hov);
+    }
+
+    &:active {
+      background: var(--bg-btn-ntrl-active);
+    }
+  }
+
+  &.is-current {
+    color: var(--fg-btn-primary-inline);
+
+    &:hover, &:focus-visible {
+      color: var(--fg-btn-primary-inline-hov);
+    }
+  }
+
+  &.is-selected {
+    background-color: var(--bg-btn-primary);
+    border-color: var(--bc-primary);
+    color: var(--fg-btn-primary);
+    font-weight: 700;
+    
+    &:hover, &:focus-visible {
+      background-color: var(--bg-btn-primary-hov);
+      border-color: var(--bc-primary-hov);
+      color: var(--fg-btn-primary);
+    }
+
+    &:active {
+      background-color: var(--bg-btn-primary-active);
+    }
+  }
+
+  &.btn--w-100 {
+    width: 100%;
+  }
+
+  &.btn--br-lg {
+    border-radius: var(--br-lg);
+  }
+
+  &.btn--br-lgr {
+    border-radius: var(--br-lgr);
+  }
+
+  &.btn--base {
+    height: var(--h-base);
+
+    &:not(.btn--round, .btn--square) {
+      padding: 0 var(--p-lgr);
+    }
+  }
+
+  &.btn--sm {
+    height: var(--h-sm);
+  }
+
+  &.btn--smr {
+    height: var(--h-smr);
+    border-radius: var(--br-sm);
+  }
+
+  &.btn--square {
+    width: unset;
+    flex-shrink: 0;
+    aspect-ratio: 1;
+  }
+  
+  &.btn--round {
+    width: unset;
+    flex-shrink: 0;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+}
+
+.button-switch {
+  display: flex;
+  position: relative;
+  height: var(--h-smr);
+  width: var(--w-base);
+  padding: var(--p-smr);
+  border-radius: var(--br-lg);
+  border: var(--bw-sm) solid var(--bc-ntrl);
+  outline: var(--bw-base) solid transparent;
+  background-color: var(--bg-btn-ntrl);
+  transition: var(--td-base) var(--tf-primary);
+  transition-property: background, border-color;
+  
+  &:not(.button-switch--state-setting):hover {
+    transition-duration: var(--td-hover);
+  }
+
+  &:focus-visible {
+    @mixin focus-outline;
+  }
+
+  &.button-switch-state-setting {
+    transition: var(--td-fast) var(--tf-primary);
+  }
+
+  &.is-inactive {
+    background-color: var(--bg-btn-ntrl);
+
+    &:hover {
+      background-color: var(--bg-btn-ntrl-hov);
+    }
+  }
+
+  &.is-active {
+    background-color: var(--bg-btn-primary);
+    border-color: var(--bc-primary);
+
+    &:hover {
+      background-color: var(--bg-btn-primary-hov);
+    }
+  }
+}
+
+.button-switch__bar {
+  position: absolute;
+  top: var(--p-smr);
+  bottom: var(--p-smr);
+  left: var(--p-smr);
+  aspect-ratio: 1;
+  border-radius: inherit;
+  background-color: var(--clr-white);
+  box-shadow: var(--bs-sm) var(--bsc-ntrl);
+  transition-property: background-color, left;
+  transition-duration: var(--td-base), var(--td-fast);
+  transition-timing-function: var(--tf-primary);
+
+  &.is-dragging {
+    transition-property: background-color;
+  }
+}
+
+.checkbox {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--w-smr);
+  height: var(--h-smr);
+  flex-shrink: 0;
+  border: var(--bw-base) solid var(--bc-ntrl);
+  border-radius: var(--br-base);
+  color: var(--clr-white);
+  transition: var(--td-base) var(--tf-primary);
+  transition-property: background, border;
+
+  &:hover {
+    transition-duration: var(--td-hover);
+  }
+
+  &:focus-visible {
+    @mixin focus-outline;
+  }
+
+  &.is-inactive {
+    background-color: transparent;
+    border-color: var(--bc-ntrl);
+  }
+
+  &.is-inactive:hover {
+    border-color: var(--bc-todo-selected);
+  }
+  
+  &.is-active {
+    background-color: var(--bg-btn-primary);
+    border-color: var(--bg-btn-primary);
+  }
+
+  svg {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  &.is-active svg {
+    opacity: 1;
+    visibility: visible;
+  }
+}
