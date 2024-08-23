@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "Daniel G (https://github.com/ramirez1986)",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "css-loader": "^7.1.2",
     "cssnano": "^6.0.5",
