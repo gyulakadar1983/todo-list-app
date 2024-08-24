@@ -321,7 +321,10 @@ class Todo {
 
     if (todoObject.dueDate) {
       todo.dueDate = todoFragment.querySelector('.js-todo-due-date');
-      todo.dueDate.textContent = new Intl.DateTimeFormat(navigator.language).format(todoObject.dueDate);
+      const formatter = new Intl.DateTimeFormat(navigator.language);
+      const dateParts = formatter.formatToParts(todoObject.dueDate);
+      todo.dueDate.dateTime = `${dateParts.find(part => part.type === 'year').value}-${dateParts.find(part => part.type === 'month').value}-${dateParts.find(part => part.type === 'day').value}`;
+      todo.dueDate.textContent = formatter.format(todoObject.dueDate);
     }
 
     const buttonsContainer = todoFragment.querySelector('.js-todo-buttons');

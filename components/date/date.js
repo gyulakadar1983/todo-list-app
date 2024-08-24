@@ -9,9 +9,14 @@ class DateFieldset {
   onmonthchange = null;
   onyearchange = null;
 
-  constructor(fieldsetElement) {
+  constructor(fieldsetElement, min = new Date(Date.parse('0001')), max = new Date(10000, 0, 0)) {
+    new Date()
     this.fieldset = fieldsetElement;
+    
     this.date = new Date();
+    this.min = min;
+    this.max = max;
+    
     this.lang = navigator.language;
     this.dateFormatParts = new Intl.DateTimeFormat(this.lang).formatToParts();
 
@@ -19,6 +24,7 @@ class DateFieldset {
     this.dayInput.value = this.dateFormatParts.find(part => part.type === 'day').value;
     this.dayInput.placeholder = 'dd';
     this.dayInput.maxLength = 2;
+    // this.dayInput.min = 1;
     Object.defineProperty(this.dayInput, 'max', {
       get: () => {
         return new Date(Number(this.yearInput.value), Number(this.monthInput.value), 0).getDate();
@@ -29,13 +35,16 @@ class DateFieldset {
     this.monthInput.value = this.dateFormatParts.find(part => part.type === 'month').value;
     this.monthInput.placeholder = 'mm';
     this.monthInput.maxLength = 2;
+    // this.monthInput.min = 1;
     this.monthInput.max = 12;
 
     this.yearInput = fieldsetElement.querySelector('.js-year-input');
     this.yearInput.value = this.dateFormatParts.find(part => part.type === 'year').value;
     this.yearInput.placeholder = 'yyyy';
     this.yearInput.maxLength = 4;
-    this.yearInput.max = 9999;
+    // this.yearInput.min = this.min.getFullYear();
+    // this.yearInput.max = this.max.getFullYear();
+    this.yearInput.max = new Date(10000, 0, 0).getFullYear();
     
     this.inputArray = [
       this[`${this.dateFormatParts[0].type}Input`],
@@ -148,6 +157,7 @@ class DateFieldset {
   set(em) {
     if (em === this.dayInput) {
       this.date.setDate(Number(em.value));
+
       this.ondaychange?.();
       
     } else if (em === this.monthInput) {
@@ -156,7 +166,9 @@ class DateFieldset {
         this.date.setDate(nextLastDay);
         this.dayInput.value = this.date.getDate();
       }
+      
       this.date.setMonth(Number(em.value) - 1);
+
       this.onmonthchange?.();
       
     } else if (em === this.yearInput) {
@@ -165,7 +177,9 @@ class DateFieldset {
         this.date.setDate(nextLastDay);
         this.dayInput.value = this.date.getDate();
       }
+      
       this.date.setFullYear(Number(em.value));
+
       this.onyearchange?.();
     }
 
@@ -208,8 +222,8 @@ class DateFieldset {
 class Calendar extends DateFieldset {
   selectedDate = null;
   
-  constructor(calendarElement) {
-    super(calendarElement.querySelector('.js-calendar-fieldset'));
+  constructor(calendarElement, min, max) {
+    super(calendarElement.querySelector('.js-calendar-fieldset'), min, max);
     
     this.em = calendarElement;
 
@@ -254,8 +268,8 @@ class Calendar extends DateFieldset {
         },
       },
       {
-        minOffset: -(12 - (12 - this.date.getMonth())) * (this.date.getFullYear() - new Date(0)),
-        maxOffset: (12 - this.date.getMonth()) * new Date(9999, 12, 0) - this.date.getFullYear(),
+        minOffset: (new Date(Date.parse('0001')).getFullYear() - this.date.getFullYear()) * 12 + 1,
+        maxOffset: (new Date(10000, 0, 0).getFullYear() - this.date.getFullYear()) * 12 + 12,
       }
     );
     this.monthCarousel.nextButton.addEventListener('click', () => {
@@ -284,8 +298,8 @@ class Calendar extends DateFieldset {
         }
       },
       {
-        minOffset: -this.date.getFullYear(),
-        maxOffset: new Date(10000, 0, 0) - this.date.getFullYear(),
+        minOffset: new Date(Date.parse('0001')).getFullYear() - this.date.getFullYear(),
+        maxOffset: new Date(10000, 0, 0).getFullYear() - this.date.getFullYear(),
       }
     );
     this.yearCarousel.nextButton.addEventListener('click', () => {
@@ -294,17 +308,12 @@ class Calendar extends DateFieldset {
     this.yearCarousel.prevButton.addEventListener('click', () => {
       this.selectYear(this.date.getFullYear() - 1);
     });
-
-    this.updateCalendarFormat();
-    
-    this.onyearchange = () => this.updateYear();
-    this.onmonthchange = () => this.updateMonth();
-    this.ondaychange = () => this.updateDays(true);
     
     if (this.clearButton = this.em.querySelector('.js-calendar-clear-button')) {
       this.clearButton.addEventListener('mousedown', (e) => {
         createRippleElement(e.currentTarget, e, 'dk');
       });
+
       this.clearButton.addEventListener('click', (e) => {
         this.clearDate();
       });
@@ -312,11 +321,33 @@ class Calendar extends DateFieldset {
     
     if (this.saveButton = this.em.querySelector('.js-calendar-save-button')) {
       this.saveButton.addEventListener('mousedown', (e) => {
+        if (!this.validate()) return;
+
         createRippleElement(e.currentTarget, e, 'lt');
       });
+
       this.saveButton.addEventListener('click', (e) => {
-        this.saveDate();
+        if (this.validate()) {
+          this.saveDate();
+        }
       });
+    }
+
+    this.updateCalendarFormat();
+    
+    this.onyearchange = () => {
+      this.updateYear();
+      this.updateDays();
+    }
+
+    this.onmonthchange = () => {
+      this.updateMonth();
+      this.updateYear();
+      this.updateDays();
+    }
+
+    this.ondaychange = () => {
+      this.updateDays(true);
     }
   }
 
@@ -324,9 +355,9 @@ class Calendar extends DateFieldset {
     if (stylesOnly) {
       const elementArray = [...this.dateContainer.querySelectorAll('.js-calendar-date:not(.is-disabled)')];
       
-      elementArray.find(em => em.classList.contains('is-selected')).classList.remove('is-selected');
+      elementArray.find(em => em.classList.contains('is-selected'))?.classList.remove('is-selected');
       
-      elementArray.find(em => Number(em.textContent.trim()) === this.date.getDate()).classList.add('is-selected');
+      elementArray.find(em => Number(em.textContent.trim()) === this.date.getDate())?.classList.add('is-selected');
 
       return;
     }
@@ -346,25 +377,29 @@ class Calendar extends DateFieldset {
       
       if (i > startIndex && i <= startIndex + maxDays) {
         dateElement.textContent = i - startIndex;
-        if (i - startIndex === new Date().getDate()) {
-          dateElement.classList.add('is-current');
-        }
-        if (i - startIndex === this.date.getDate()) {
-          dateElement.classList.add('is-selected');
-        }
 
-        dateElement.addEventListener('click', () => {
-          this.selectDay(i - startIndex);
-        });
+        if (!this.validate()) {
+          dateElement.disabled = true;
+
+        } else {
+          if (i - startIndex === new Date().getDate()) {
+            dateElement.classList.add('is-current');
+          }
+          if (i - startIndex === this.date.getDate()) {
+            dateElement.classList.add('is-selected');
+          }
+  
+          dateElement.addEventListener('click', () => {
+            this.selectDay(i - startIndex);
+          });
+        }
         
       } else if (i <= startIndex) {
         dateElement.textContent = maxDaysPrev - (startIndex - i);
-        dateElement.classList.add('is-disabled');
         dateElement.disabled = true;
         
       } else if (i > startIndex + maxDays) {
         dateElement.textContent = i - (startIndex + maxDays);
-        dateElement.classList.add('is-disabled');
         dateElement.disabled = true;
       }
 
@@ -377,7 +412,8 @@ class Calendar extends DateFieldset {
   selectDay(date) {
     this.date.setDate(date);
     this.updateValues();
-    this.updateDays(true);
+
+    this.ondaychange();
   }
 
   updateMonth() {
@@ -394,34 +430,39 @@ class Calendar extends DateFieldset {
     });
 
     this.monthSelect.select(this.date.getMonth(), true);
-    this.updateYear();
   }
   
   selectMonth(month) {
+    this.monthCarousel.setSlide((this.date.getFullYear() - new Date().getFullYear()) * 12 + month + 1);
+
     const nextLastDay = new Date(this.date.getFullYear(), month + 1, 0).getDate();
     if (this.date.getDate() >= nextLastDay) {
       this.date.setDate(nextLastDay);
       this.dayInput.value = this.date.getDate();
     }
+    
     this.date.setMonth(month);
     this.updateValues();
-    this.updateMonth();
+    
+    this.onmonthchange();
   }
 
   updateYear() {
+    this.yearCarousel.setSlide(this.date.getFullYear() - new Date().getFullYear());
+    
+    this.monthCarousel.setSlide((this.date.getFullYear() - new Date().getFullYear()) * 12 + this.date.getMonth() + 1);
+    
     [...this.yearCarousel.slideCollection].forEach((em, index) => {
       em.textContent = new Intl.DateTimeFormat(this.lang, {year: 'numeric'}).format(
-        new Date(
-          index === 0 ? this.date.getFullYear() - 1:
-          index === 1 ? this.date.getFullYear() :
-          index === 2 && this.date.getFullYear() + 1,
-          this.date.getMonth(),
-          this.date.getDate()
-        )
+        Date.parse(
+          String(
+            index === 0 ? this.date.getFullYear() - 1 :
+            index === 1 ? this.date.getFullYear() :
+            index === 2 && this.date.getFullYear() + 1
+          ).padStart(4, '0'),
+        ),
       );
     });
-
-    this.updateDays();
   }
 
   selectYear(year) {
@@ -430,9 +471,11 @@ class Calendar extends DateFieldset {
       this.date.setDate(nextLastDay);
       this.dayInput.value = this.date.getDate();
     }
+
     this.date.setFullYear(year);
     this.updateValues();
-    this.updateYear();
+    
+    this.onyearchange();
   }
 
   updateCalendarFormat() {
@@ -467,21 +510,36 @@ class Calendar extends DateFieldset {
       )
     )});
     this.monthSelect.items.array[this.date.getMonth()].button.classList.add('is-current');
+
     this.updateMonth();
+    this.updateDays();
+    this.updateYear();
+  }
+
+  validate() {
+    if (
+      Date.compare(this.date, this.min) < 0 ||
+      Date.compare(this.date, this.max) > 0
+    ) {
+      this.saveButton.disabled = true;
+      return false;
+
+    } else {
+      this.saveButton.disabled = false;
+      return true;
+    }
   }
 
   clearDate() {
     this.setCurrent();
     this.selectedDate = null;
     delete this.em.dataset.selectedDate;
-    this.clearButton.classList.add('is-disabled');
     this.clearButton.disabled = true;
   }
 
   saveDate() {
-    this.selectedDate = Date.parse(this.date);
+    this.selectedDate = this.date.getTime();
     this.em.dataset.selectedDate = this.getString();
-    this.clearButton.classList.remove('is-disabled');
     this.clearButton.disabled = false;
   }
 }

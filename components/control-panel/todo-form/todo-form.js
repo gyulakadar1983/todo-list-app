@@ -9,7 +9,7 @@ import { TodoList } from '../../todo-list/TodoList.js';
 import { Form } from '../../form/Form.js';
 
 const todoFormElement = controlPanelEm.querySelector('.js-todo-form');
-const todoFormCalendar = new Calendar(todoFormElement.querySelector('.js-calendar'));
+const todoFormCalendar = new Calendar(todoFormElement.querySelector('.js-calendar'), new Date());
 const todoFormObject = {
   form: todoFormElement,
   input: todoFormElement.querySelector('.js-todo-text-input'),
@@ -33,7 +33,7 @@ const todoFormObject = {
       this.calendar.clearDate();
 
     } else {
-      this.calendar.date = new Date();
+      this.calendar.setCurrent();
       this.calendar.saveDate();
     }
     

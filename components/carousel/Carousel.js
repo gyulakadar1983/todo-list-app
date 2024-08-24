@@ -31,6 +31,7 @@ class Carousel {
   spin(direction) {
     if (this.sliderConfig) {
       if (direction === 'right' && this.offset < this.maxOffset) {
+
         const slide = document.createElement('li');
         slide.classList.add('carousel__slide');
         slide.append(this.sliderConfig.createNextSlide());
@@ -40,7 +41,7 @@ class Carousel {
         slide.getAnimations().find(a => a.animationName === 'carousel-spin-right').finished.then(() => slide.classList.remove('carousel__slide--spin-right')).catch(() => {});
         this.slideCollection[0].remove();
 
-        this.offset++;
+        this.setSlide(this.offset + 1);
   
       } else if (direction === 'left' && this.offset > this.minOffset) {
         const slide = document.createElement('li');
@@ -52,39 +53,30 @@ class Carousel {
         slide.getAnimations().find(a => a.animationName === 'carousel-spin-left').finished.then(() => slide.classList.remove('carousel__slide--spin-left')).catch(() => {});
         this.slideCollection[this.slideCollection.length - 1].remove();
 
-        this.offset--;
+        this.setSlide(this.offset - 1);
       }
 
       [...this.slideCollection].find(slide => slide.classList.contains('is-current')).classList.remove('is-current');
       [...this.slideCollection][Math.floor(this.slideCollection.length / 2)].classList.add('is-current');
 
       this.onSliderSpin?.call(this);
-
-      if (this.offset === this.minOffset) {
-        this.prevButton.classList.add('is-disabled');
-
-      } else if (this.offset === this.maxOffset) {
-        this.nextButton.classList.add('is-disabled');
-        
-      } else {
-        this.nextButton.classList.remove('is-disabled');
-        this.prevButton.classList.remove('is-disabled');
-      }
     }
   }
 
   setSlide(slide) {
     this.offset = slide;
 
-    if (this.offset === this.minOffset) {
-      this.prevButton.classList.add('is-disabled');
+    if (this.offset <= this.minOffset) {
+      this.prevButton.disabled = true;
+      this.nextButton.disabled = false;
 
-    } else if (this.offset === this.maxOffset) {
-      this.nextButton.classList.add('is-disabled');
+    } else if (this.offset >= this.maxOffset) {
+      this.prevButton.disabled = false;
+      this.nextButton.disabled = true;
       
     } else {
-      this.nextButton.classList.remove('is-disabled');
-      this.prevButton.classList.remove('is-disabled');
+      this.prevButton.disabled = false;
+      this.nextButton.disabled = false;
     }
   }
 }
