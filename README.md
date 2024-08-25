@@ -1,6 +1,7 @@
 # Todo List App
+# https://ramirez1986.github.io/todo-list-app/
 
-The Todo List App is a basic app for creating and managing tasks (todos) and lists.
+Todo List App is a basic app for creating and managing tasks (todos) and lists.
 
 <img src="https://github.com/user-attachments/assets/8314b211-3079-475d-8750-2be44ed980ed" alt="App with opened todo list" width="600">
 
