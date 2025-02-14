@@ -179,9 +179,20 @@ class TodoList {
   deleteTodos(todoArray) {
     if (!todoArray || !todoArray.length) return;
     
-    for (let i = todoArray.length - 1; i >= 0; i--) {
-      todoArray[i].delete();
-    }
+    const loop = () => {
+      /**
+       * delete() uses splice, so the todoArray indices
+       * are updated immediately, hence just
+       * the iteration is needed.
+       */
+      todoArray[0].delete();
+
+      if (todoArray.length) {
+        setTimeout(loop);
+      }
+    };
+    
+    loop();
   }
 
   deleteAll() {
