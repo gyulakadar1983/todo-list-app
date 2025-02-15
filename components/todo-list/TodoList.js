@@ -219,6 +219,13 @@ class TodoList {
     return ListCollection.em.querySelector(`[data-list-id="${this.id}"]`);
   }
 
+  static updateCounts() {
+    const todoCountArray = TodoList.em.querySelectorAll('.js-todo-count');
+    for (let i = 0; i < todoCountArray.length; i++) {
+      todoCountArray[i].textContent = todoCountArray.length - i;
+    }
+  }
+
   static clearSelection() {
     [...TodoList.em.querySelectorAll('.js-checkbox.is-active')].map(checkbox => checkbox.toggle());
 

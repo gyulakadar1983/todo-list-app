@@ -121,11 +121,7 @@ class Todo {
       deleteTodoAnimation.play();
       deleteTodoAnimation.finished.then(() => {
         em.remove();
-  
-        const todoCountArray = TodoList.em.querySelectorAll('.js-todo-count');
-        for (let i = 0; i < todoCountArray.length; i++) {
-          todoCountArray[i].textContent = todoCountArray.length - i;
-        }
+        TodoList.updateCounts();
       });
     }
 
