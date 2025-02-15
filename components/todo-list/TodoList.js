@@ -13,6 +13,8 @@ import { appMenu } from '../app-menu/app-menu.js';
 class TodoList {
   static maxTitleLength = 50;
   
+  static loaderEm = document.querySelector('.js-todo-list-loader');
+  static deleteProcessEm = document.querySelector('.js-todo-list-loader-delete-process-t').content;
   static emTemplate = document.querySelector('.js-list-t');
   static em = document.querySelector('.js-todo-list');
   static emptyEm = document.querySelector('.js-todo-list-empty');
@@ -179,20 +181,84 @@ class TodoList {
   deleteTodos(todoArray) {
     if (!todoArray || !todoArray.length) return;
     
-    const loop = () => {
-      /**
-       * delete() uses splice, so the todoArray indices
-       * are updated immediately, hence just
-       * the iteration is needed.
-       */
-      todoArray[0].delete();
+    if (todoArray.length < 50) {
+      const loop = () => {
+        /**
+         * delete() uses splice, so the todoArray indices
+         * are updated immediately, hence just
+         * the iteration is needed.
+         */
+        todoArray[0].delete();
+  
+        if (todoArray.length) {
+          setTimeout(loop);
+        }
+      };
+      
+      loop();
 
-      if (todoArray.length) {
-        setTimeout(loop);
-      }
-    };
+    } else {
+      TodoList.loaderEm.replaceChildren(TodoList.deleteProcessEm.cloneNode(true));
+      TodoList.loaderEm.classList.replace('is-hidden', 'is-visible');
+      TodoList.loaderEm.inert = false;
+
+      let i = 0;
+      const updatedArray = [];
+
+      const loop = () => {
+        const j = Math.min(i + 1000, this.todoArray.length);
+        while (i < j) {
+          if (!todoArray.includes(this.todoArray[i])) {
+            updatedArray.push(this.todoArray[i]);
+            
+          } else {
+            TodoList.deletedTodoArchive.push(todoArray[i]);
+          }
+
+          i++;
+        }
+  
+        if (i < todoArray.length) {
+          setTimeout(loop);
+
+        } else {
+          this.todoArray = updatedArray;
+          this.render();
+          
+          TodoList.loaderEm.inert = true;
+          TodoList.loaderEm.classList.replace('is-visible', 'is-hidden');
+          
+          const currentListCollection = ListCollection.findCurrent();
+          new Toast(
+            TodoList.deletedTodoArchive.length + ' todos were deleted.',
+            {
+              buttonText: 'Undo',
+              buttonFn: () => {
+                TodoList.deletedTodoArchive.forEach(todoObject => {
+                  const todoList = currentListCollection.listArray.find(list => list.id === todoObject.listId);
     
-    loop();
+                  if (!todoList) return;
+    
+                  todoObject.id = todoList.todoArray[0]?.id + 1 || 1;
+                  const todo = todoList.addTodo(todoObject);
+    
+                  if (todoList.id === TodoList.em.dataset.id) todo.prepend();
+                });
+              },
+              closeFn: () => {
+                TodoList.deletedTodoArchive.length = 0;
+              },
+              modificator: 'todo-deleted',
+            },
+          );
+        }
+      }
+      
+      /**
+       * Timeout for the animation to show for a little.
+       */
+      setTimeout(loop, 500);
+    }
   }
 
   deleteAll() {

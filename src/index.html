@@ -532,6 +532,13 @@
           </svg>
         </template>
       </template>
+      <div class="todo-list-loader js-todo-list-loader is-hidden" inert></div>
+      <template class="js-todo-list-loader-delete-process-t">
+        <div class="todo-list-loader__process todo-list-loader__process--delete">
+          <svg class="svg todo-list-loader__svg" width="50" height="50"><use href="#svg-trash-fill"/></svg>
+          <p class="todo-list-loader__text">Deleting todos</p>
+        </div>
+      </template>
       <section class="todo-list js-todo-list">
         <section class="todo-list-empty js-todo-list-empty">
           <img src="../src/images/todo-list-empty.svg" alt="Empty todo list" class="todo-list-empty__image">
