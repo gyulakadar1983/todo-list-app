@@ -1,3 +1,66 @@
+.todo-list-loader {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: inherit;
+  @mixin layer;
+  color: var(--fg-1);
+  z-index: 2;
+  transition: var(--td-fast) var(--tf-primary);
+
+  &.is-hidden {
+    opacity: 0;
+  }
+}
+
+.todo-list-loader__process {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-lg);
+}
+
+.todo-list-loader__svg {
+  color: var(--fg-error);
+  margin-bottom: var(--s-sm);
+
+  animation: todo-list-loader-svg-anim infinite 2s var(--tf-primary);
+
+  @keyframes todo-list-loader-svg-anim {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: .5;
+    }
+  }
+}
+
+.todo-list-loader__text {
+  font-size: var(--fs-base);
+
+  &::after {
+    content: '';
+    animation: todo-list-loader-text-anim infinite 2s;
+  }
+
+  @keyframes todo-list-loader-text-anim {
+    0% {
+      content: '';
+    }
+    25% {
+      content: '.';
+    }
+    50% {
+      content: '..';
+    }
+    75% {
+      content: '...';
+    }
+  }
+}
+
 .todo-list {
   position: relative;
   width: 100%;

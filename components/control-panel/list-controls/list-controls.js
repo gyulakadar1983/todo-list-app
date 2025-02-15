@@ -164,8 +164,6 @@ listControlsObject.selection.deleteButton.addEventListener('mousedown', (e) => {
 listControlsObject.selection.deleteButton.addEventListener('click', (e) => {
   const todoList = ListCollection.findCurrent().findCurrentList();
   todoList.deleteTodos(TodoList.selectedTodoArray);
-
-  TodoList.clearSelection();
 });
 listControlsObject.selection.finishButton.addEventListener('mousedown', (e) => {
   createRippleElement(e.currentTarget, e, 'dk');
