@@ -21,8 +21,7 @@ The first version of the app looked like this:
 
 At that time you could only add and delete items in a single list. LocalStorage was implemented too (if it even worth mentioning).
 
-In the end of the course it was an exercise to implement multiple lists and that's it... 
-But I got carried away and accidentally learned most of the vanilla Javascript.
+In the end of the course it was an exercise to implement multiple lists, but I got carried away, hand-crafted lots of components and learned a lot of things about vanilla Javascript.
 
 The 3 technologies listed in the Tech Stack were all learned and practiced during the development too.
   
